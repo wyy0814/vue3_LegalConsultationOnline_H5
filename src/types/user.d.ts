@@ -2,7 +2,7 @@
     用户相关ts类型
 */
 
-// 登录接口返回数据类型
+// 登录接口返回数据的类型
 export type User = {
   /** token令牌 */
   token: string
