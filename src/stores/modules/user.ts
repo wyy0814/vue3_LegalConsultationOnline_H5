@@ -23,6 +23,10 @@ export const useUserStore = defineStore(
     return { user, setUser, delUser }
   },
   {
-    persist: true //第三个参数，开启数据持久化到本地
+    persist: {
+      key: 'consult-user-bymyself', //自定义存储的key，指定存储哪些数据
+      path: ['user'] //这里放置要存储的变量名
+    }
+    // persist: true //第三个参数，开启数据持久化到本地（以store的ID作为存储的key默认存储全部数据）
   }
 )
