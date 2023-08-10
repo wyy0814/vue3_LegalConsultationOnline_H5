@@ -7,17 +7,13 @@ const clickRight = () => {
 <template>
   <div class="login-page">
     <!-- 头部导航栏 -->
-    <law-nav-bar
-      title="登录"
-      right="注册"
-      @click-right="clickRight"
-    ></law-nav-bar>
+    <law-nav-bar title="" right="注册" @click-right="clickRight"></law-nav-bar>
     <!-- 头部 -->
     <div class="login-head">
       <h3>密码登录</h3>
       <a href="javascript:;">
         <span>短信验证码登录</span>
-        <van-icon name="arrow"></van-icon>
+        <van-icon name="arrow" style="color: #555"></van-icon>
       </a>
     </div>
     <!-- 表单 -->
@@ -71,6 +67,9 @@ const clickRight = () => {
       font-size: 15px;
       // background: pink;
     }
+    span {
+      color: #555;
+    }
   }
   &-other {
     margin-top: 50px;
@@ -92,6 +91,9 @@ const clickRight = () => {
   .forget {
     font-size: 15px;
     // color: balck;
+    a {
+      color: #555;
+    }
   }
   .cp-cell {
     height: 52px;
@@ -104,6 +106,10 @@ const clickRight = () => {
       a {
         color: pink;
         padding: 0 5px;
+        font-size: 15px;
+      }
+      span {
+        font-size: 15px;
       }
     }
   }

@@ -9,9 +9,10 @@
     <van-button type="success">成功按钮</van-button>
     <van-button type="default">默认按钮</van-button>
     <!-- 测试精灵图 -->
-    <svg aria-hidden="true">
+    <!-- <svg aria-hidden="true">
       <use href="#icon-login-eye-off" />
-    </svg>
+    </svg> -->
+    <law-icon name="consult-alipay"></law-icon>
   </div>
 </template>
 
