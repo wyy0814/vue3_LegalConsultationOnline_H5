@@ -1,5 +1,5 @@
 <template>
-  <svg aria-hidden="true">
+  <svg aria-hidden="true" class="icon">
     <use :href="`#icon-${name}`" />
   </svg>
 </template>
@@ -8,4 +8,9 @@
 defineProps<{ name: string }>()
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.icon {
+  width: 1em;
+  height: 1em;
+}
+</style>

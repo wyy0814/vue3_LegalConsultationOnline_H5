@@ -1,7 +1,17 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+
 const clickRight = () => {
   console.log('点了')
 }
+
+// 是否同意网站使用协议
+const agree = ref(false)
+
+// 动态切换密码框眼睛图标,控制是否显示密码
+// 1.定义一个响应变量isShowPass
+// 2.根据isShowPass控制是否显示密码
+const isShowPass = ref(false)
 </script>
 
 <template>
@@ -19,7 +29,17 @@ const clickRight = () => {
     <!-- 表单 -->
     <van-form autocomplete="off">
       <van-field placeholder="请输入手机号" type="tel"></van-field>
-      <van-field placeholder="请输入密码" type="password"></van-field>
+      <van-field
+        placeholder="请输入密码"
+        :type="isShowPass ? 'text' : 'password'"
+      >
+        <template #button>
+          <law-icon
+            :name="`login-eye-${isShowPass ? 'on' : 'off'}`"
+            @click="isShowPass = !isShowPass"
+          />
+        </template>
+      </van-field>
       <div class="cp-cell">
         <van-checkbox>
           <span>我已同意</span>
