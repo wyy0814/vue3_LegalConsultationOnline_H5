@@ -4,8 +4,10 @@
     <ul>
       <li>{{ store.user }}</li>
       <li @click="changeUser">修改user</li>
-      <li></li>
     </ul>
+    <van-button type="primary">主要按钮</van-button>
+    <van-button type="success">成功按钮</van-button>
+    <van-button type="default">默认按钮</van-button>
   </div>
 </template>
 
