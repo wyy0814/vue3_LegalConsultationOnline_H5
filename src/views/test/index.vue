@@ -13,6 +13,10 @@
 
 <script setup lang="ts">
 import { useUserStore } from '@/stores/modules/user'
+// import { useRoute } from '@vue-router'
+import { request } from '@/utils/request'
+import { onMounted } from 'vue'
+
 const store = useUserStore()
 const changeUser = () => {
   store.setUser({
@@ -23,6 +27,24 @@ const changeUser = () => {
     avatar: ''
   })
 }
+
+// 测试request请求
+// const geterr = async () => {
+//   const res = await request.get('/patient/myUser')
+//   console.log(res)
+// }
+const getuser = async () => {
+  const resuser = await request.post('/login/password', {
+    mobile: '13211112222',
+    password: 'abc12345000'
+  })
+  console.log('登录成功:', resuser)
+}
+
+onMounted(() => {
+  // geterr()
+  getuser()
+})
 </script>
 
 <style lang="scss" scoped>

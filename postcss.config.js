@@ -1,7 +1,6 @@
 /* 
     该插件不能把行内样式的px转为vw
 */
-let module
 module.exports = {
   plugins: {
     'postcss-px-to-viewport': {
