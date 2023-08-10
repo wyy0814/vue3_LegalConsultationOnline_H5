@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>测试页面</h1>
+    <h1 class="test">测试页面</h1>
     <ul>
       <li>{{ store.user }}</li>
       <li @click="changeUser">修改user</li>
@@ -25,4 +25,9 @@ const changeUser = () => {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.test {
+  font-size: 16px;
+  border: 1px solid red;
+}
+</style>
