@@ -8,14 +8,18 @@
     <van-button type="primary">主要按钮</van-button>
     <van-button type="success">成功按钮</van-button>
     <van-button type="default">默认按钮</van-button>
+    <!-- 测试精灵图 -->
+    <svg aria-hidden="true">
+      <use href="#icon-login-eye-off" />
+    </svg>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useUserStore } from '@/stores/modules/user'
 // import { useRoute } from '@vue-router'
-import { request } from '@/utils/request'
-import { onMounted } from 'vue'
+// import { request } from '@/utils/request'
+// import { onMounted } from 'vue'
 
 const store = useUserStore()
 const changeUser = () => {
@@ -33,18 +37,18 @@ const changeUser = () => {
 //   const res = await request.get('/patient/myUser')
 //   console.log(res)
 // }
-const getuser = async () => {
-  const resuser = await request.post('/login/password', {
-    mobile: '13211112222',
-    password: 'abc12345000'
-  })
-  console.log('登录成功:', resuser)
-}
+// const getuser = async () => {
+//   const resuser = await request.post('/login/password', {
+//     mobile: '13211112222',
+//     password: 'abc12345000'
+//   })
+//   console.log('登录成功:', resuser)
+// }
 
-onMounted(() => {
-  // geterr()
-  getuser()
-})
+// onMounted(() => {
+//   // geterr()
+//   getuser()
+// })
 </script>
 
 <style lang="scss" scoped>
