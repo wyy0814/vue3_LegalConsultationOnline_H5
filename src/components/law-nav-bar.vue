@@ -39,7 +39,7 @@ const emit = defineEmits<{
   .van-nav-bar {
     &__arrow {
       font-size: 18px;
-      color: #111;
+      color: #888;
     }
     &__text {
       font-size: 15px;
