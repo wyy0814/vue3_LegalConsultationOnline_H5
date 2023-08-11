@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { mobileRules, passwordRules } from '@/utils/rules'
+import { Toast } from 'vant'
 
 const clickRight = () => {
   console.log('点了')
@@ -12,6 +14,15 @@ const agree = ref(false)
 // 1.定义一个响应变量isShowPass
 // 2.根据isShowPass控制是否显示密码
 const isShowPass = ref(false)
+
+// 准备账号和密码的响应变量
+const mobile = ref('')
+const password = ref('')
+// 按钮native-type + 表单@submit + login函数可以实现登录按钮的兜底校验
+const login = () => {
+  if (!agree.value) return Toast.fail('请同意协议')
+  console.log('校验通过了')
+}
 </script>
 
 <template>
@@ -27,10 +38,19 @@ const isShowPass = ref(false)
       </a>
     </div>
     <!-- 表单 -->
-    <van-form autocomplete="off">
-      <van-field placeholder="请输入手机号" type="tel"></van-field>
+    <van-form @submit="login">
       <van-field
+        autocomplete="off"
+        v-model="mobile"
+        :rules="mobileRules"
+        placeholder="请输入手机号"
+        type="tel"
+      ></van-field>
+      <van-field
+        autocomplete="off"
+        v-model="password"
         placeholder="请输入密码"
+        :rules="passwordRules"
         :type="isShowPass ? 'text' : 'password'"
       >
         <template #button>
@@ -41,7 +61,7 @@ const isShowPass = ref(false)
         </template>
       </van-field>
       <div class="cp-cell">
-        <van-checkbox>
+        <van-checkbox v-model="agree" icon-size="16px">
           <span>我已同意</span>
           <a href="javascript:;">用户协议</a>
           <span>及</span>
@@ -49,7 +69,9 @@ const isShowPass = ref(false)
         </van-checkbox>
       </div>
       <div class="cp-cell">
-        <van-button block round type="primary">登 录</van-button>
+        <van-button native-type="submit" block round type="primary"
+          >登 录</van-button
+        >
       </div>
       <div class="cp-cell forget">
         <a href="javascript:;">忘记密码？</a>
