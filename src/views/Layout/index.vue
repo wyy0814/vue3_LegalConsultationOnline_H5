@@ -7,25 +7,25 @@
       <van-tabbar-item to="/home">
         首页
         <template #icon="{ active }">
-          <cp-icon :name="`home-index-${active ? 'active' : 'default'}`" />
+          <law-icon :name="`home-index-${active ? 'active' : 'default'}`" />
         </template>
       </van-tabbar-item>
       <van-tabbar-item to="/article">
-        健康百科
+        法律百科
         <template #icon="{ active }">
-          <cp-icon :name="`home-article-${active ? 'active' : 'default'}`" />
+          <law-icon :name="`home-article-${active ? 'active' : 'default'}`" />
         </template>
       </van-tabbar-item>
       <van-tabbar-item to="/notify">
         消息中心
         <template #icon="{ active }">
-          <cp-icon :name="`home-notice-${active ? 'active' : 'default'}`" />
+          <law-icon :name="`home-notice-${active ? 'active' : 'default'}`" />
         </template>
       </van-tabbar-item>
       <van-tabbar-item to="/user">
         我的
         <template #icon="{ active }">
-          <cp-icon :name="`home-mine-${active ? 'active' : 'default'}`" />
+          <law-icon :name="`home-mine-${active ? 'active' : 'default'}`" />
         </template>
       </van-tabbar-item>
     </van-tabbar>
@@ -43,6 +43,7 @@
       }
       &__text {
         font-size: 11px;
+        // color: #2c2c2c
       }
     }
   }
