@@ -1,17 +1,24 @@
 <template>
   <div class="patient-page">
-    <cp-nav-bar :title="isChange ? '选择患者' : '家庭档案'" />
+    <law-nav-bar :title="isChange ? '选择患者' : '家庭档案'"></law-nav-bar>
     <!-- 头部选择提示 -->
     <div class="patient-change" v-if="isChange">
       <h3>请选择患者信息</h3>
       <p>以便医生给出更准确的治疗，信息仅医生可见</p>
     </div>
     <div class="patient-list">
-      <div class="patient-item" v-for="item in patientList" :key="item.id" @click="selectedPatient(item)"
-        :class="{ selected: patientId === item.id }">
+      <div
+        class="patient-item"
+        v-for="item in patientList"
+        :key="item.id"
+        @click="selectedPatient(item)"
+        :class="{ selected: patientId === item.id }"
+      >
         <div class="info">
           <span class="name">{{ item.name }}</span>
-          <span class="id">{{ item.idCard.replace(/^(.{6})(?:\d+)(.{4})$/, '\$1******\$2') }}</span>
+          <span class="id">{{
+            item.idCard.replace(/^(.{6})(?:\d+)(.{4})$/, '\$1******\$2')
+          }}</span>
           <span>{{ item.genderValue }}</span>
           <span>{{ item.age }}岁</span>
         </div>
@@ -20,7 +27,11 @@
         </div>
         <div class="tag" v-if="item.defaultFlag === 1">默认</div>
       </div>
-      <div class="patient-add" v-if="patientList.length < 6" @click="showPopup()">
+      <div
+        class="patient-add"
+        v-if="patientList.length < 6"
+        @click="showPopup()"
+      >
         <cp-icon name="user-add" />
         <p>添加患者</p>
       </div>
@@ -28,16 +39,31 @@
     </div>
     <!-- 患者选择下一步 -->
     <div class="patient-next" v-if="patientId">
-      <van-button type="primary" round block v-if="isChange" @click="next">下一步</van-button>
+      <van-button type="primary" round block v-if="isChange" @click="next"
+        >下一步</van-button
+      >
     </div>
     <!-- 侧边栏 -->
     <van-popup v-model:show="show" position="right">
-      <cp-nav-bar :title="patient.id ? '编辑患者' : '添加患者'" right-text="保存" @click-right="submit" :back="closeDialog">
+      <cp-nav-bar
+        :title="patient.id ? '编辑患者' : '添加患者'"
+        right-text="保存"
+        @click-right="submit"
+        :back="closeDialog"
+      >
       </cp-nav-bar>
       <!-- 表单 -->
       <van-form autocomplete="off">
-        <van-field v-model="patient.name" label="真实姓名" placeholder="请输入真实姓名" />
-        <van-field v-model="patient.idCard" label="身份证号" placeholder="请输入身份证号" />
+        <van-field
+          v-model="patient.name"
+          label="真实姓名"
+          placeholder="请输入真实姓名"
+        />
+        <van-field
+          v-model="patient.idCard"
+          label="身份证号"
+          placeholder="请输入身份证号"
+        />
         <van-field label="性别">
           <!-- 单选按钮组件 -->
           <template #input>
@@ -51,16 +77,20 @@
         </van-field>
       </van-form>
       <van-action-bar v-if="patient.id">
-        <van-action-bar-button type="danger" text="删除" @click="remove"></van-action-bar-button>
+        <van-action-bar-button
+          type="danger"
+          text="删除"
+          @click="remove"
+        ></van-action-bar-button>
       </van-action-bar>
     </van-popup>
   </div>
 </template>
 
-<script setup lang='ts'>
+<script setup lang="ts">
 import { getPatientList, addPatient, editPatient, delPatient } from '@/api/user'
 import type { PatientList, Patient } from '@/types/user'
-import { Dialog, Toast } from 'vant';
+import { Dialog, Toast } from 'vant'
 import { computed, onMounted, ref } from 'vue'
 import Validator from 'id-validator'
 import { useRoute, useRouter } from 'vue-router'
@@ -103,7 +133,9 @@ const loadList = async () => {
   const res = await getPatientList()
   patientList.value = res.data
   if (isChange.value && patientList.value.length) {
-    const defaultPatient = patientList.value.find(item => item.defaultFlag === 1)
+    const defaultPatient = patientList.value.find(
+      (item) => item.defaultFlag === 1
+    )
     if (defaultPatient) {
       patientId.value = defaultPatient.id
     } else {
@@ -131,27 +163,32 @@ const showPopup = (item?: Patient) => {
 
 // 保存
 const submit = async () => {
-  if (!patient.value.name) return Toast({
-    message: '请输入真实姓名',
-    position: 'top'
-  })
-  if (!patient.value.idCard) return Toast({
-    message: '请输入身份证号',
-    position: 'top'
-  })
+  if (!patient.value.name)
+    return Toast({
+      message: '请输入真实姓名',
+      position: 'top'
+    })
+  if (!patient.value.idCard)
+    return Toast({
+      message: '请输入身份证号',
+      position: 'top'
+    })
   const validate = new Validator()
-  if (!validate.isValid(patient.value.idCard)) return Toast(
-    {
+  if (!validate.isValid(patient.value.idCard))
+    return Toast({
       message: '身份证格式错误',
       position: 'top'
     })
   const { sex } = validate.getInfo(patient.value.idCard)
-  if (patient.value.gender !== sex) return Toast({
-    message: '性别和身份证不符',
-    position: 'top'
-  })
+  if (patient.value.gender !== sex)
+    return Toast({
+      message: '性别和身份证不符',
+      position: 'top'
+    })
   // 添加/编辑
-  patient.value.id ? await editPatient(patient.value) : await addPatient(patient.value)
+  patient.value.id
+    ? await editPatient(patient.value)
+    : await addPatient(patient.value)
   show.value = false
   loadList()
   Toast.success(patient.value.id ? '编辑成功' : '添加成功')
@@ -193,7 +230,7 @@ onMounted(() => {
 })
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .patient-page {
   padding: 46px 0 80px;
 }
@@ -201,12 +238,12 @@ onMounted(() => {
 .patient-change {
   padding: 15px;
 
-  >h3 {
+  > h3 {
     font-weight: normal;
     margin-bottom: 5px;
   }
 
-  >p {
+  > p {
     color: var(--cp-text3);
   }
 }

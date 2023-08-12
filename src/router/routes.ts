@@ -50,6 +50,11 @@ const routes = [
         }
       }
     ]
+  },
+  {
+    path: '/user/patient',
+    component: () => import('@/views/User/PatientPage.vue'),
+    meta: { title: '用户管理' }
   }
 ]
 export default routes

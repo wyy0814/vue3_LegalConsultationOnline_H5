@@ -1,34 +1,29 @@
 <template>
   <div class="user-page">
+    <!-- 头部展示 -->
     <div class="user-page-head">
       <div class="top">
-        <van-image
-          round
-          fit="cover"
-          src="https://ts1.cn.mm.bing.net/th/id/R-C.5a0dcebfe6b1d0eed734cd3f22ee189b?rik=vbNJKN5ahwOO4g&riu=http%3a%2f%2fimg1.wywyx.com%2fuploads%2fallimg%2f191221%2f1_12210K550N94.jpg&ehk=fSwIwNlVxCm7mJzn9Q2yz3JKAyzmxKOuq1RnOGUc5Bc%3d&risl=&pid=ImgRaw&r=0&sres=1&sresct=1"
-        />
+        <van-image round fit="cover" :src="user.avatar" />
         <div class="name">
-          <p>hello</p>
-          <p>
-            <van-icon name="edit" />
-          </p>
+          <p>{{ user.account }}</p>
+          <p><van-icon name="edit" /></p>
         </div>
       </div>
       <van-row>
         <van-col span="6">
-          <p>hello</p>
+          <p>{{ user.collectionNumber }}</p>
           <p>收藏</p>
         </van-col>
         <van-col span="6">
-          <p>hello</p>
+          <p>{{ user.likeNumber }}</p>
           <p>关注</p>
         </van-col>
         <van-col span="6">
-          <p>hello</p>
+          <p>{{ user.score }}</p>
           <p>积分</p>
         </van-col>
         <van-col span="6">
-          <p>hello</p>
+          <p>{{ user.couponNumber }}</p>
           <p>优惠券</p>
         </van-col>
       </van-row>
@@ -37,50 +32,96 @@
       <div class="head">
         <h3>药品订单</h3>
         <router-link to="/order"
-          >全部订单
-          <van-icon name="arrow" />
-        </router-link>
+          >全部订单 <van-icon name="arrow"
+        /></router-link>
       </div>
-      <van-row>
+      <van-row v-if="user.orderInfo">
         <van-col span="6">
-          <van-badge>
-            <cp-icon name="user-paid" />
-          </van-badge>
-          <p>待付款</p>
+          <law-icon name="user-paid" />
+          <p>待付款:{{ user.orderInfo.paidNumber }}</p>
         </van-col>
         <van-col span="6">
-          <van-badge>
-            <cp-icon name="user-shipped" />
-          </van-badge>
-          <p>待发货</p>
+          <law-icon name="user-shipped" />
+          <p>待发货:{{ user.orderInfo.receivedNumber }}</p>
         </van-col>
         <van-col span="6">
-          <van-badge>
-            <cp-icon name="user-received" />
-          </van-badge>
-          <p>待收货</p>
+          <law-icon name="user-received" />
+          <p>待收货:{{ user.orderInfo.shippedNumber }}</p>
         </van-col>
         <van-col span="6">
-          <van-badge>
-            <cp-icon name="user-finished" />
-          </van-badge>
-          <p>已完成</p>
+          <law-icon name="user-finished" />
+          <p>已完成:{{ user.orderInfo.finishedNumber }}</p>
         </van-col>
       </van-row>
     </div>
-    <!-- 2. 快捷工具 -->
     <div class="user-page-group">
       <h3>快捷工具</h3>
-      <van-cell is-link to="item.path" :border="false">
-        <template #icon><cp-icon name="`user-tool-0${i + 1}`" /></template>
+      <van-cell
+        v-for="(item, i) in tools"
+        :key="item.label"
+        :title="item.label"
+        :to="item.path"
+        is-link
+        :border="false"
+      >
+        <template #icon><law-icon :name="`user-tool-0${i + 1}`" /></template>
       </van-cell>
     </div>
-    <!-- 3. 退出登录 -->
-    <a class="logout" href="javascript:;">退出登录</a>
+    <!-- 退出登录 -->
+    <a class="logout" href="javascript:;" @click="logout">退出登录</a>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { userInfo } from '@/api/user'
+import { ref, onMounted } from 'vue'
+import type { UserInfo } from '@/types/user'
+import { useRouter } from 'vue-router'
+import { useUserStore } from '@/stores'
+import { Dialog } from 'vant'
+
+// 响应变量存储用户数据
+const user = ref({} as UserInfo)
+// 获取用户数据
+const getUserInfo = async () => {
+  const { data } = await userInfo()
+  console.log('用户数据', data)
+  user.value = data
+}
+// 组件挂载
+onMounted(() => {
+  getUserInfo()
+})
+
+// 功能二、快捷工具渲染
+const tools = [
+  { label: '我的问诊', path: '/user/consult' },
+  { label: '我的处方', path: '/' },
+  { label: '家庭档案', path: '/user/patient' },
+  { label: '地址管理', path: '/user/address' },
+  { label: '我的评价', path: '/' },
+  { label: '官方客服', path: '/' },
+  { label: '设置', path: '/' }
+]
+
+// 功能三、退出登录
+const store = useUserStore()
+const router = useRouter()
+const logout = async () => {
+  await Dialog.confirm({
+    title: '温馨提示',
+    message: '您确认要退出吗？'
+  })
+    .then(() => {
+      // 确定走这个
+      store.delUser()
+      router.push('/login')
+    })
+    .catch(() => {
+      // 取消走这个
+    })
+}
+</script>
 
 <style lang="scss" scoped>
 .user-page {
