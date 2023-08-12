@@ -11,6 +11,8 @@ const router = createRouter({
 
 // 前置路由守卫 => 实现页面访问拦截
 router.beforeEach((to) => {
+  // 给页面动态添加title
+  document.title = `法律咨询-${to.meta.title}`
   const store = useUserStore()
   if (!store.user.token && !['/login', '/401'].includes(to.path))
     return '/login'

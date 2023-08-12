@@ -3,11 +3,17 @@ import { Tab, Tabbar } from 'vant'
 const routes = [
   {
     path: '/test',
-    component: () => import('@/views/test/index.vue')
+    component: () => import('@/views/test/index.vue'),
+    meta: {
+      title: '测试页'
+    }
   },
   {
     path: '/login',
-    component: () => import('@/views/login/index.vue')
+    component: () => import('@/views/login/index.vue'),
+    meta: {
+      title: '登录页'
+    }
   },
   // Tabbar页面
   {
@@ -15,13 +21,34 @@ const routes = [
     path: '/',
     component: () => import('@/views/layout/index.vue'),
     children: [
-      { path: '/home', component: () => import('@/views/home/index.vue') },
+      {
+        path: '/home',
+        component: () => import('@/views/home/index.vue'),
+        meta: {
+          title: '首页'
+        }
+      },
       {
         path: '/article',
-        component: () => import('@/views/article/index.vue')
+        component: () => import('@/views/article/index.vue'),
+        meta: {
+          title: '法律百科'
+        }
       },
-      { path: '/notify', component: () => import('@/views/notify/index.vue') },
-      { path: '/user', component: () => import('@/views/user/index.vue') }
+      {
+        path: '/notify',
+        component: () => import('@/views/notify/index.vue'),
+        meta: {
+          title: '消息'
+        }
+      },
+      {
+        path: '/user',
+        component: () => import('@/views/user/index.vue'),
+        meta: {
+          title: '个人中心'
+        }
+      }
     ]
   }
 ]
