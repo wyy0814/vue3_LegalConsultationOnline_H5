@@ -1,5 +1,3 @@
-import { Tab, Tabbar } from 'vant'
-
 const routes = [
   {
     path: '/test',
@@ -53,7 +51,7 @@ const routes = [
   },
   {
     path: '/user/patient',
-    component: () => import('@/views/User/PatientPage.vue'),
+    component: () => import('@/views/User/PatientInfo.vue'),
     meta: { title: '用户管理' }
   }
 ]

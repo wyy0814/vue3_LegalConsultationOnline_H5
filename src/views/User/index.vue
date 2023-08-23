@@ -28,13 +28,17 @@
         </van-col>
       </van-row>
     </div>
+    <!-- 咨询订单 -->
     <div class="user-page-order">
+      <!-- 咨询订单-头部 -->
       <div class="head">
         <h3>药品订单</h3>
         <router-link to="/order"
           >全部订单 <van-icon name="arrow"
         /></router-link>
       </div>
+      <!-- 咨询订单-列表 -->
+      <!-- 看user.orderInfo是否存在,存在再渲染这个模板 -->
       <van-row v-if="user.orderInfo">
         <van-col span="6">
           <law-icon name="user-paid" />
@@ -54,8 +58,10 @@
         </van-col>
       </van-row>
     </div>
+    <!-- 快捷工具 -->
     <div class="user-page-group">
       <h3>快捷工具</h3>
+      <!-- is-link开启链接,能够跳页面 -->
       <van-cell
         v-for="(item, i) in tools"
         :key="item.label"
@@ -80,7 +86,10 @@ import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores'
 import { Dialog } from 'vant'
 
-// 响应变量存储用户数据
+/* 
+  一、获取用户数据渲染展示
+ */
+// 定义响应变量存储用户数据
 const user = ref({} as UserInfo)
 // 获取用户数据
 const getUserInfo = async () => {
@@ -93,20 +102,24 @@ onMounted(() => {
   getUserInfo()
 })
 
-// 功能二、快捷工具渲染
+/* 
+  二、快捷工具渲染
+ */
 const tools = [
-  { label: '我的问诊', path: '/user/consult' },
-  { label: '我的处方', path: '/' },
-  { label: '家庭档案', path: '/user/patient' },
+  { label: '我的咨询', path: '/user/consult' },
+  { label: '我的解答', path: '/' },
+  { label: '咨询人管理', path: '/user/patient' },
   { label: '地址管理', path: '/user/address' },
   { label: '我的评价', path: '/' },
   { label: '官方客服', path: '/' },
   { label: '设置', path: '/' }
 ]
 
-// 功能三、退出登录
+/* 
+  三、退出登录
+ */
 const store = useUserStore()
-const router = useRouter()
+const router = useRouter() //use开头的钩子函数（自己创建的除外）只能在setup函数中使用
 const logout = async () => {
   await Dialog.confirm({
     title: '温馨提示',
@@ -128,7 +141,6 @@ const logout = async () => {
   background-color: var(--cp-bg);
   min-height: calc(100vh - 50px);
   padding: 0 15px 65px;
-
   // 头部
   &-head {
     height: 200px;
@@ -137,6 +149,7 @@ const logout = async () => {
       rgba(44, 181, 165, 0.46),
       rgba(44, 181, 165, 0)
     );
+    // background-color: yellow;
     margin: 0 -15px;
     padding: 0 15px;
 
@@ -188,7 +201,6 @@ const logout = async () => {
       }
     }
   }
-
   // 订单
   &-order {
     background-color: #fff;
@@ -199,11 +211,15 @@ const logout = async () => {
     .head {
       display: flex;
       justify-content: space-between;
+      // height: 50px;
       line-height: 50px;
       padding: 0 15px;
+      // background-color: pink;
 
       a {
         color: var(--cp-tip);
+        // background-color: yellow;
+        // line-height: 85px;
       }
     }
 
@@ -220,7 +236,6 @@ const logout = async () => {
       }
     }
   }
-
   // 分组
   &-group {
     background-color: #fff;
@@ -241,13 +256,18 @@ const logout = async () => {
       margin-right: 10px;
     }
   }
-
+  // 退出登录
   .logout {
     display: block;
     margin: 20px auto;
-    width: 100px;
+    width: 200px;
+    height: 30px;
+    border-radius: 30px;
+    font-size: 13px;
+    line-height: 30px;
     text-align: center;
-    color: var(--cp-price);
+    background-color: #ffffff;
+    color: #00a8ff;
   }
 }
 </style>
