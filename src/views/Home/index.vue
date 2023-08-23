@@ -14,21 +14,21 @@
       <van-row>
         <van-col span="8">
           <router-link to="/" class="nav">
-            <cp-icon name="home-doctor"></cp-icon>
+            <law-icon name="home-doctor"></law-icon>
             <p class="title">问医生</p>
             <p class="desc">按科室查问医生</p>
           </router-link>
         </van-col>
         <van-col span="8">
           <router-link to="/consult/fast" class="nav">
-            <cp-icon name="home-graphic"></cp-icon>
+            <law-icon name="home-graphic"></law-icon>
             <p class="title">极速问诊</p>
             <p class="desc">20s医生极速回复</p>
           </router-link>
         </van-col>
         <van-col span="8">
           <router-link to="/" class="nav">
-            <cp-icon name="home-prescribe"></cp-icon>
+            <law-icon name="home-prescribe"></law-icon>
             <p class="title">开药门诊</p>
             <p class="desc">线上买药更方便</p>
           </router-link>
@@ -37,25 +37,25 @@
       <van-row>
         <van-col span="6">
           <router-link to="/" class="nav min">
-            <cp-icon name="home-order"></cp-icon>
+            <law-icon name="home-order"></law-icon>
             <p class="title">药品订单</p>
           </router-link>
         </van-col>
         <van-col span="6">
           <router-link to="/" class="nav min">
-            <cp-icon name="home-docs"></cp-icon>
+            <law-icon name="home-docs"></law-icon>
             <p class="title">健康档案</p>
           </router-link>
         </van-col>
         <van-col span="6">
           <router-link to="/" class="nav min">
-            <cp-icon name="home-rp"></cp-icon>
+            <law-icon name="home-rp"></law-icon>
             <p class="title">我的处方</p>
           </router-link>
         </van-col>
         <van-col span="6">
           <router-link to="/" class="nav min">
-            <cp-icon name="home-find"></cp-icon>
+            <law-icon name="home-find"></law-icon>
             <p class="title">疾病查询</p>
           </router-link>
         </van-col>
@@ -73,7 +73,7 @@
       </van-swipe>
     </div>
     <!-- 4. 知识列表：关注、推荐、减脂、饮食 -->
-    <van-tabs shrink sticky>
+    <van-tabs shrink sticky v-model:active="active">
       <van-tab title="关注" name="like">
         <follow-doctor></follow-doctor>
         <knowledge-list type="like" />
@@ -91,7 +91,14 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import type { KnowledgeType } from '@/types/consult'
+import KnowledgeList from './components/KnowledgeList.vue'
+import { ref } from 'vue'
+
+//当前选中的页签
+const active = ref<KnowledgeType>('recommend')
+</script>
 
 <style lang="scss" scoped>
 .home-page {
