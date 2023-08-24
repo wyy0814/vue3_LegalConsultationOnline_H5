@@ -19,12 +19,7 @@
 <script setup lang="ts">
 import KnowledgeCard from './KnowledgeCard.vue'
 import { ref } from 'vue'
-import type {
-  KnowledgeType,
-  KnowledgeList,
-  KnowledgePage,
-  KnowledgeParams
-} from '@/types/consult'
+import type { KnowledgeType, KnowledgeList } from '@/types/consult'
 import { getKnowledgePage } from '@/api/consult'
 
 // 接收父组件穿过来的文章列表的类型

@@ -18,3 +18,6 @@ export const addPatient = (patient: Patient) =>
 // 删除用户信息
 export const delPatient = (patient: Patient.value.id) =>
   request.del('patient/del', patient)
+
+export const followOrUnfollow = (id: string, type: FollowType = 'doc') =>
+  request.post('/like', { id, type })

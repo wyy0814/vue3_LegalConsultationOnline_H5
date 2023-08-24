@@ -10,6 +10,8 @@ import { VantResolver } from 'unplugin-vue-components/resolvers'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import path from 'path'
 
+// import StyleImport from 'vite-plugin-style-import'
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -24,6 +26,17 @@ export default defineConfig({
       // eslint-disable-next-line no-undef
       iconDirs: [path.resolve(process.cwd(), 'src/icons')]
     })
+    // StyleImport({
+    //   libs: [
+    //     {
+    //       libraryName: 'element-plus',
+    //       esModule: true,
+    //       resolveStyle: (name) => {
+    //         return `element-plus/lib/theme-chalk/${name}.scss`
+    //       }
+    //     }
+    //   ]
+    // })
   ],
   resolve: {
     alias: {

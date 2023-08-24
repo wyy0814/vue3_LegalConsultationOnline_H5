@@ -75,7 +75,8 @@
     <!-- 4. 知识列表：关注、推荐、减脂、饮食 -->
     <van-tabs shrink sticky v-model:active="active">
       <van-tab title="关注" name="like">
-        <follow-doctor></follow-doctor>
+        <!-- 关注律师列表 -->
+        <follow-laywers></follow-laywers>
         <knowledge-list type="like" />
       </van-tab>
       <van-tab title="推荐" name="recommend">
@@ -93,7 +94,8 @@
 
 <script setup lang="ts">
 import type { KnowledgeType } from '@/types/consult'
-import KnowledgeList from './components/KnowledgeList.vue'
+import KnowledgeList from '@/views/Home/components/KnowledgeList.vue'
+import FollowLaywers from '@/views/Home//components/FollowLaywers.vue'
 import { ref } from 'vue'
 
 //当前选中的页签
