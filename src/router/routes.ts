@@ -53,6 +53,24 @@ const routes = [
     path: '/user/patient',
     component: () => import('@/views/User/PatientInfo.vue'),
     meta: { title: '用户管理' }
+  },
+  // 咨询级别
+  {
+    path: '/consult/fast',
+    component: () => import('@/views/Consult/ConsultFast.vue'),
+    meta: { title: '极速咨询' }
+  },
+  // 选择咨询方向
+  {
+    path: '/consult/dep',
+    component: () => import('@/views/Consult/ConsultDep.vue'),
+    meta: { title: '选择方向' }
+  },
+  //问题描述
+  {
+    path: '/consult/illness',
+    component: () => import('@/views/Consult/ConsultProblem.vue'),
+    meta: { title: '问题描述' }
   }
 ]
 export default routes

@@ -20,7 +20,11 @@
           </router-link>
         </van-col>
         <van-col span="8">
-          <router-link to="/consult/fast" class="nav">
+          <router-link
+            @click="store.setType(ConsultType.Fast)"
+            to="/consult/fast"
+            class="nav"
+          >
             <law-icon name="home-graphic"></law-icon>
             <p class="title">极速问诊</p>
             <p class="desc">20s医生极速回复</p>
@@ -97,9 +101,13 @@ import type { KnowledgeType } from '@/types/consult'
 import KnowledgeList from '@/views/Home/components/KnowledgeList.vue'
 import FollowLaywers from '@/views/Home//components/FollowLaywers.vue'
 import { ref } from 'vue'
+import { useConsultStore } from '@/stores/modules/consult'
+import { ConsultType } from '@/enums'
 
 //当前选中的页签
 const active = ref<KnowledgeType>('recommend')
+
+const store = useConsultStore()
 </script>
 
 <style lang="scss" scoped>

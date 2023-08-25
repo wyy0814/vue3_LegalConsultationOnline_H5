@@ -2,7 +2,8 @@ import type {
   KnowledgePage,
   KnowledgeParams,
   PageParams,
-  DoctorPage
+  DoctorPage,
+  TopDep
 } from '@/types/consult'
 import { request } from '@/utils/request'
 
@@ -16,3 +17,6 @@ export const getDoctorPage = (params: PageParams) =>
 // 获取推荐关注律师接口函数
 export const followLawyers = (params: PageParams) =>
   request.get<DoctorPage>('/home/page/doc', params)
+
+// 获取选择咨询方向的返回数据
+export const getAllDep = () => request<TopDep[]>('/dep/all')
